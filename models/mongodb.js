@@ -2,7 +2,7 @@ const MongoClient = require('mongodb').MongoClient;
 
 //连接数据库，并回调函数
 function _connectDB(callback) {
-    const url = 'mongodb://localhost:27017/YW';
+    const url = 'mongodb://localhost:27017/XF';
     MongoClient.connect(url, function (err, db) {
         callback(err, db);
     })

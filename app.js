@@ -1,9 +1,9 @@
-﻿var express = require("express");                         //引入express框架
-var IndexRouter = require('./controller/IndexRouter');    //引入客户路由
-var session = require("express-session");                //引入session模块
+﻿const express = require("express");                            //引入express框架
+const mobileRouter = require('./controller/mobileRouter');    //引入移动端客户路由
+const session = require("express-session");                  //引入session模块
 
 
-var app = express();                                   //实例化express
+const app = express();                                   //实例化express
 
 
 //引入中间件
@@ -13,16 +13,24 @@ app.use(session({                                     //使用session中间件
     saveUninitialized: true
 }));
 
-
 app.use(express.static("./public"));                             //静态PUBLIC
+app.use(express.static("./static"));                             //静态static
 
+app.all('/node', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+});
 
-//公共部分（客户端）
-app.post("/userLogin", IndexRouter.userLogin);                    //用户登录
-//公共部分（客户端）
-app.post("/LeavePost", IndexRouter.LeavePost);                    //用户登录
+//移动端部分
+app.post("/getXFMessageList", mobileRouter.getXFMessageList);                      //移动端用户注册
 
+app.post("/viewMessageContent", mobileRouter.viewMessageContent);                  //移动端用户注册
 
-app.listen(3000);                                                 //监听3000端口
+app.post("/getWorkScheduleList", mobileRouter.getWorkScheduleList);                  //移动端用户注册
+
+app.listen(3001);                                                 //监听3000端口
 
 console.log("SERVER START");                                     //控制台打印服务器成功启动信息
