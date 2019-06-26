@@ -24,12 +24,13 @@ app.all('/node', function(req, res, next) {
     next();
 });
 
+
 //移动端部分
-app.post("/getXFMessageList", mobileRouter.getXFMessageList);                      //移动端用户注册
+app.post("/getXFMessageList", mobileRouter.getXFMessageList);                      //查看消息列表
 
-app.post("/viewMessageContent", mobileRouter.viewMessageContent);                  //移动端用户注册
+app.post("/viewMessageContent", mobileRouter.viewMessageContent);                  //查看消息详情
 
-app.post("/getWorkScheduleList", mobileRouter.getWorkScheduleList);                  //移动端用户注册
+app.post("/getWorkScheduleList", mobileRouter.getWorkScheduleList);                  //查询班次
 
 app.listen(3001);                                                 //监听3000端口
 
