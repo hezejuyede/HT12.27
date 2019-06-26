@@ -73,15 +73,8 @@ exports.viewMessageContent = function (req, res, next) {
 exports.getWorkScheduleList = function (req, res, next) {
     var form = new formidable.IncomingForm();
     form.parse(req, function (err, fields) {
-        let date = new Date('2019-06-15').getTime();
-        let date2 = new Date(fields.time).getTime();
-        let date3 =date2-date;
-        let date4 = (Math.ceil (date3 /(1000*60*60*24)))%8;
-        console.log(date4);
-
-
-
-        /*function getWorkScheduleList(data1,data2){
+        let tableData = [];
+        function getWorkScheduleList(data1,data2){
             mongodb.find("workSchedule", {"class": data1}, (err, result) => {
                 if (err) {
                     res.json({
@@ -154,10 +147,59 @@ exports.getWorkScheduleList = function (req, res, next) {
                 }
             })
         }
-        let dayClassName = "四班";
-        let nightClassName = "二班";
-        let tableData = [];
-        getWorkScheduleList(dayClassName,nightClassName);*/
 
+        let date = new Date('2019-06-14').getTime();
+        let date2 = new Date(fields.time).getTime();
+        let date3 =date2-date;
+        let date4 = date3 /(1000*60*60*24); /*(Math.ceil (date3 /(1000*60*60*24)))%8;*/
+        let date5 = date4%8;
+        if(date5===0){
+            let dayClassName = "四班";
+            let nightClassName = "三班";
+            getWorkScheduleList(dayClassName,nightClassName);
+            console.log(1)
+        }
+        else if(date5===1){
+            let dayClassName = "一班";
+            let nightClassName = "四班";
+            getWorkScheduleList(dayClassName,nightClassName);
+
+        }
+        else if(date5===2){
+            let dayClassName = "二班";
+            let nightClassName = "一班";
+            getWorkScheduleList(dayClassName,nightClassName);
+
+        }
+        else if(date5===3){
+            let dayClassName = "四班";
+            let nightClassName = "二班";
+            getWorkScheduleList(dayClassName,nightClassName);
+
+        }
+        else if(date5===4){
+            let dayClassName = "三班";
+            let nightClassName = "四班";
+            getWorkScheduleList(dayClassName,nightClassName);
+
+        }
+        else if(date5===5){
+            let dayClassName = "二班";
+            let nightClassName = "三班";
+            getWorkScheduleList(dayClassName,nightClassName);
+
+        }
+        else if(date5===6){
+            let dayClassName = "一班";
+            let nightClassName = "二班";
+            getWorkScheduleList(dayClassName,nightClassName);
+
+        }
+        else if(date5===7){
+            let dayClassName = "三班";
+            let nightClassName = "一班";
+            getWorkScheduleList(dayClassName,nightClassName);
+
+        }
     })
 };
