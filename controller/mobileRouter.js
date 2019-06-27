@@ -33,6 +33,7 @@ exports.getXFMessageList = function (req, res, next) {
     })
 };
 
+
 //查看消息详情
 exports.viewMessageContent = function (req, res, next) {
     var form = new formidable.IncomingForm();

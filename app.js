@@ -27,10 +27,15 @@ app.all('/node', function(req, res, next) {
 
 //移动端部分
 app.post("/getXFMessageList", mobileRouter.getXFMessageList);                      //查看消息列表
+app.post("/node/getXFMessageList", mobileRouter.getXFMessageList);                      //查看消息列表
+
 
 app.post("/viewMessageContent", mobileRouter.viewMessageContent);                  //查看消息详情
+app.post("/node/viewMessageContent", mobileRouter.viewMessageContent);                  //查看消息详情
+
 
 app.post("/getWorkScheduleList", mobileRouter.getWorkScheduleList);                  //查询班次
+app.post("/node/getWorkScheduleList", mobileRouter.getWorkScheduleList);                  //查询班次
 
 app.listen(3001);                                                 //监听3000端口
 
