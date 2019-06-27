@@ -152,55 +152,65 @@ exports.getWorkScheduleList = function (req, res, next) {
         let date = new Date('2019-06-14').getTime();
         let date2 = new Date(fields.time).getTime();
         let date3 =date2-date;
-        let date4 = date3 /(1000*60*60*24); /*(Math.ceil (date3 /(1000*60*60*24)))%8;*/
-        let date5 = date4%8;
-        if(date5===0){
-            let dayClassName = "四班";
-            let nightClassName = "三班";
-            getWorkScheduleList(dayClassName,nightClassName);
-            console.log(1)
-        }
-        else if(date5===1){
-            let dayClassName = "一班";
-            let nightClassName = "四班";
-            getWorkScheduleList(dayClassName,nightClassName);
+        if(date3>0){
+            let date4 = date3 /(1000*60*60*24); /*(Math.ceil (date3 /(1000*60*60*24)))%8;*/
+            let date5 = date4%8;
+            if(date5===0){
+                let dayClassName = "四班";
+                let nightClassName = "三班";
+                getWorkScheduleList(dayClassName,nightClassName);
+                console.log(1)
+            }
+            else if(date5===1){
+                let dayClassName = "一班";
+                let nightClassName = "四班";
+                getWorkScheduleList(dayClassName,nightClassName);
 
-        }
-        else if(date5===2){
-            let dayClassName = "二班";
-            let nightClassName = "一班";
-            getWorkScheduleList(dayClassName,nightClassName);
+            }
+            else if(date5===2){
+                let dayClassName = "二班";
+                let nightClassName = "一班";
+                getWorkScheduleList(dayClassName,nightClassName);
 
-        }
-        else if(date5===3){
-            let dayClassName = "四班";
-            let nightClassName = "二班";
-            getWorkScheduleList(dayClassName,nightClassName);
+            }
+            else if(date5===3){
+                let dayClassName = "四班";
+                let nightClassName = "二班";
+                getWorkScheduleList(dayClassName,nightClassName);
 
-        }
-        else if(date5===4){
-            let dayClassName = "三班";
-            let nightClassName = "四班";
-            getWorkScheduleList(dayClassName,nightClassName);
+            }
+            else if(date5===4){
+                let dayClassName = "三班";
+                let nightClassName = "四班";
+                getWorkScheduleList(dayClassName,nightClassName);
 
-        }
-        else if(date5===5){
-            let dayClassName = "二班";
-            let nightClassName = "三班";
-            getWorkScheduleList(dayClassName,nightClassName);
+            }
+            else if(date5===5){
+                let dayClassName = "二班";
+                let nightClassName = "三班";
+                getWorkScheduleList(dayClassName,nightClassName);
 
-        }
-        else if(date5===6){
-            let dayClassName = "一班";
-            let nightClassName = "二班";
-            getWorkScheduleList(dayClassName,nightClassName);
+            }
+            else if(date5===6){
+                let dayClassName = "一班";
+                let nightClassName = "二班";
+                getWorkScheduleList(dayClassName,nightClassName);
 
-        }
-        else if(date5===7){
-            let dayClassName = "三班";
-            let nightClassName = "一班";
-            getWorkScheduleList(dayClassName,nightClassName);
+            }
+            else if(date5===7){
+                let dayClassName = "三班";
+                let nightClassName = "一班";
+                getWorkScheduleList(dayClassName,nightClassName);
 
+            }
         }
+        else {
+            res.json({
+                "state": "-1",
+                "message": "只能查询6月14号以后",
+                data: []
+            })
+        }
+
     })
 };

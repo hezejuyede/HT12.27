@@ -16,11 +16,10 @@ app.use(session({                                     //使用session中间件
 app.use(express.static("./public"));                             //静态PUBLIC
 app.use(express.static("./static"));                             //静态static
 
-app.all('/node', function(req, res, next) {
+app.all('*', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
-    res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    res.header("Access-Control-Allow-Headers", "X-Requested-With,Content-Type");
+    res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
     next();
 });
 
