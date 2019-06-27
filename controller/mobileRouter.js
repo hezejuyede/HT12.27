@@ -211,6 +211,5 @@ exports.getWorkScheduleList = function (req, res, next) {
                 data: []
             })
         }
-
     })
 };
