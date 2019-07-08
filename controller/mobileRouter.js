@@ -4,7 +4,7 @@ var md5 = require("../models/md5");                           //引入md5加密
 
 
 
-//查看消息列表
+//查看公告列表
 exports.getXFMessageList = function (req, res, next) {
     mongodb.find("xfMessage", {}, (err, result) => {
         if (err) {
@@ -33,8 +33,7 @@ exports.getXFMessageList = function (req, res, next) {
     })
 };
 
-
-//查看消息详情
+//查看公告详情
 exports.viewMessageContent = function (req, res, next) {
     var form = new formidable.IncomingForm();
     form.parse(req, function (err, fields) {
@@ -64,6 +63,114 @@ exports.viewMessageContent = function (req, res, next) {
                         data:[]
                     })
                 }
+            }
+        })
+    })
+};
+
+//新增公告
+exports.addAnnouncement = function (req, res, next) {
+    var form = new formidable.IncomingForm();
+    form.parse(req, function (err, fields) {
+        let data =[];
+        mongodb.find("xfMessage", {}, (err, result) => {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                if(result.length>0){
+                   data = result;
+                   mongodb.insertOne("xfMessage",{
+                       "title":fields.title,
+                       "content":fields.content,
+                       "id":data.length+1
+                   },(err,result)=>{
+                       if (err) {
+                           res.json({
+                               "state":"-2",
+                               "message":"数据库错误",
+                               data:result
+                           })
+                       }
+                       else {
+                           res.json({
+                               "state":"1",
+                               "message":"新增成功",
+                               data:[]
+                           })
+                       }
+                   })
+                }
+                else {
+                    mongodb.insertOne("xfMessage",{
+                        "title":fields.title,
+                        "content":fields.content,
+                        "id":1
+                    },(err,result)=>{
+                        if (err) {
+                            res.json({
+                                "state":"-2",
+                                "message":"数据库错误",
+                                data:result
+                            })
+                        }
+                        else {
+                            res.json({
+                                "state":"1",
+                                "message":"新增成功",
+                                data:[]
+                            })
+                        }
+                    })
+                }
+            }
+        })
+    })
+};
+
+//保存公告
+exports.saveAnnouncement = function (req, res, next) {
+    var form = new formidable.IncomingForm();
+    form.parse(req, function (err, fields) {
+        mongodb.updateMany("xfMessage", {"id":fields.id},
+            {$set:{"title": fields.title,"content":fields.content}}
+            ,(err, result) => {
+            if (err) {
+                res.json({
+                    "state":"-1",
+                    "message":"修改失败",
+                    data:result
+                })
+            }
+            else {
+                res.json({
+                    "state":"1",
+                    "message":"修改成功",
+                    data:[]
+                })
+            }
+        })
+    })
+};
+
+//删除公告
+exports.delAnnouncement = function (req, res, next) {
+    var form = new formidable.IncomingForm();
+    form.parse(req, function (err, fields) {
+        mongodb.deleteMany("xfMessage", {"id":fields.id}, (err, result) => {
+            if (err) {
+                res.json({
+                    "state":"-1",
+                    "message":"删除失败",
+                    data:result
+                })
+            }
+            else {
+                res.json({
+                    "state": "1",
+                    "message": "删除成功",
+                    data: []
+                })
             }
         })
     })
